@@ -1,4 +1,8 @@
-
+"""Scripts to parse .csv file of sequencing data to .tsv format
+Need to include only: SAMPLE_ID and FASTQ_FILE,
+where FASTQ_FILE: SAMPLE_ID.Experiment_Name.INDEX_ID.fastq.gz
+Author: Sukhanova Xenia
+"""
 #imports
 
 from argparse import ArgumentParser
@@ -16,7 +20,19 @@ inpt = args.input
 
 #Function for search of starting table's line and experiment name
 def start_search(filename):
+    """Performs description estimation and
+    Experiment name search
     
+    Parameters
+    filename: csv dataframe
+        The .csv dataset to parse
+    Returns
+    count: numeric
+        number of lines before Data start
+    exp: string
+        Experiment Name
+    """
+
     count = 0
     exp = 0
     infile = open(filename, 'r')
@@ -33,6 +49,14 @@ def start_search(filename):
 
 #Function of fromats convertation:
 def csv_tsv_converter(inpt):
+    """Performs file parsing and formatting
+    Parametres:
+    inpt: csv dataframe
+        The .csv dataset which should be parsed
+    Returns
+    .tsv file with columns: sample_id, fastq_file,
+    the name of input file is saved
+    """
 
     # Initialize output file to write in it in parallel:
     out = inpt.split('.')[0] + '.tsv'
