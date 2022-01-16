@@ -69,9 +69,9 @@ def csv_to_tsv_url(inpt):
                 count += 1
                 if 'Experiment Name' in line:
                     exp = line.rstrip().split(',')[1]
-        else:
-            count += 2
-            break
+            else:
+                count += 2
+                break
         infile.close()
         # Step 2: Initialize output file and start parsing .csv
         out = inpt.split('.')[0] + '.tsv'
