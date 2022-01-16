@@ -1,6 +1,6 @@
-This reposotory is created for Genotek test challenge
+Репозиторий создан в целях выполнения тестового задания в компанию Genotek.
 
-It contains several scripts for the following task:
+Содержимое - скрипты, написанные для выполнения поставленной задачи:
 
 Нужно написать скрипт, который будет парсить вот такой файл 
 (https://github.com/clintval/sample-sheet/blob/master/tests/resources/single-end-colliding-sample-ids.csv)
