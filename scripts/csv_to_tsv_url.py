@@ -46,7 +46,7 @@ def csv_to_tsv_url(inpt):
             if 'Data' not in line.decode('utf-8'):
               count += 1
               if 'Experiment Name' in line.decode('utf-8'):
-                  exp = line.rstrip().split(',')[1]
+                  exp = line.decode('utf-8').rstrip().split(',')[1]
             else:
               count += 2
               break
