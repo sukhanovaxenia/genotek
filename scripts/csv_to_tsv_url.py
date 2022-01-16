@@ -8,6 +8,7 @@ Author: Sukhanova Xenia
 # imports 
 
 from argparse import ArgumentParser
+from urllib.request import urlopen
 
 # Argument
 parser = ArgumentParser()
@@ -37,19 +38,24 @@ def csv_to_tsv(inpt):
 
     count = 0
     exp = 0
-    # Step 1: define number of description lines and the experiment name
-    with open(inpt, 'r') as infile:
-        for line in infile.readlines():
-            if 'Data' not in line:
-                count += 1
-                if 'Experiment Name' in line:
-                    exp = line.rstrip().split(',')[1]
-            else:
-                count += 2
-                break
+    # Step 0: check if URL or not
+    try:
+        infile, infile2 = urlopen(inpt), urlopen(inpt)
+    except ValueError:
+        infile, infile2 = open(inpt, 'r'), open(inpt, 'r')
+    # Step 1: estimate description size and identify experiment name:
+    for line in infile.readlines():
+        if 'Data' not in line:
+            count += 1
+            if 'Experiment Name' in line:
+                exp = line.rstrip().split(',')[1]
+        else:
+            count += 2
+            break
+    infile.close()
     # Step 2: Initialize output file and start parsing .csv
     out = inpt.split('.')[0] + '.tsv'
-    with open(inpt, 'r') as infile2, open(out,'w') as output:    
+    with open(out,'w') as output:    
         output.write('sample_id\tfastq_file\n')
         for line2 in infile2.readlines()[count:]:
             sample_id = line2.rstrip().split(',')[0]
