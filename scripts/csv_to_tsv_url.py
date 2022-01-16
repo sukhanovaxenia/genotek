@@ -43,13 +43,13 @@ def csv_to_tsv_url(inpt):
         infile, infile2 = urlopen(inpt), urlopen(inpt)
         # Step 1: estimate description size and identify experiment name:
         for line in infile.readlines():
-        if 'Data' not in line.decode('utf-8'):
-            count += 1
-            if 'Experiment Name' in line.decode('utf-8'):
-                exp = line.rstrip().split(',')[1]
-        else:
-            count += 2
-            break
+            if 'Data' not in line.decode('utf-8'):
+              count += 1
+              if 'Experiment Name' in line.decode('utf-8'):
+                  exp = line.rstrip().split(',')[1]
+            else:
+              count += 2
+              break
         infile.close()
         # Step 2: Initialize output file and start parsing .csv
         out = inpt.split('.')[0] + '.tsv'
@@ -67,8 +67,8 @@ def csv_to_tsv_url(inpt):
         for line in infile.readlines():
             if 'Data' not in line:
                 count += 1
-            if 'Experiment Name' in line:
-                exp = line.rstrip().split(',')[1]
+                if 'Experiment Name' in line:
+                    exp = line.rstrip().split(',')[1]
         else:
             count += 2
             break
